@@ -1,6 +1,6 @@
 import time
 from os import PathLike
-from typing import Union, BinaryIO, TextIO
+from typing import Union, AsyncIterable, Iterator
 
 from fastapi import FastAPI, Path
 from nonebot import get_app
@@ -32,7 +32,9 @@ async def get_file(file_id: int = Path()):
 
 
 async def upload_file(bot: Bot, event: MessageEvent, filename: str,
-                      data: Union[None, bytes, BinaryIO, str, TextIO] = None,
+                      data: Union[None, bytes, str,
+                                  AsyncIterable[Union[str, bytes]],
+                                  Iterator[Union[str, bytes]]] = None,
                       path: Union[None, str, PathLike[str]] = None):
     if isinstance(event, PrivateMessageEvent):
         await upload_private_file(bot, event.user_id, filename, data, path)
@@ -43,7 +45,9 @@ async def upload_file(bot: Bot, event: MessageEvent, filename: str,
 
 
 async def upload_group_file(bot: Bot, group_id: int, filename: str,
-                            data: Union[None, bytes, BinaryIO] = None,
+                            data: Union[None, bytes, str,
+                                        AsyncIterable[Union[str, bytes]],
+                                        Iterator[Union[str, bytes]]] = None,
                             path: Union[None, str, PathLike[str]] = None):
     if not data and not path:
         raise ValueError("either data or path must be provided")
@@ -64,7 +68,9 @@ async def upload_group_file(bot: Bot, group_id: int, filename: str,
 
 
 async def upload_private_file(bot: Bot, user_id: int, filename: str,
-                              data: Union[None, bytes, BinaryIO] = None,
+                              data: Union[None, bytes, str,
+                                          AsyncIterable[Union[str, bytes]],
+                                          Iterator[Union[str, bytes]]] = None,
                               path: Union[None, str, PathLike[str]] = None):
     if not data and not path:
         raise ValueError("either data or path must be provided")

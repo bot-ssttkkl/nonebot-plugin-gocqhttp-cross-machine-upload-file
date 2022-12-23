@@ -6,7 +6,7 @@ nonebot-plugin-gocqhttp-cross-machine-upload-file
 ## 用法
 
 ```python
-from io import StringIO, BytesIO
+from io import StringIO
 
 from nonebot import on_startswith, require
 from nonebot.adapters.onebot.v11 import Bot, MessageEvent
@@ -24,6 +24,7 @@ async def handle(bot: Bot, event: MessageEvent):
     # 上传打开的IO流
     with StringIO() as f:
         f.write("Hello World")
+        f.seek(0)
         await upload_file(bot, event, "hello.txt", f)
 
     # 上传bytes
