@@ -3,6 +3,34 @@ nonebot-plugin-gocqhttp-cross-machine-upload-file
 
 为go-cqhttp与nonebot部署于不同机器的系统提供上传群文件、私聊文件的能力。
 
+## 用法
+
+```python
+from io import StringIO, BytesIO
+
+from nonebot import on_startswith, require
+from nonebot.adapters.onebot.v11 import Bot, MessageEvent
+
+require("nonebot_plugin_gocqhttp_cross_machine_upload_file")
+
+from nonebot_plugin_gocqhttp_cross_machine_upload_file import upload_file
+
+
+@on_startswith("test").handle()
+async def handle(bot: Bot, event: MessageEvent):
+    # 上传指定路径文件
+    await upload_file(bot, event, "image.png", path="image.png")
+
+    # 上传打开的IO流
+    with StringIO() as f:
+        f.write("Hello World")
+        await upload_file(bot, event, "hello.txt", f)
+
+    # 上传bytes
+    await upload_file(bot, event, "hello.txt", "Hello World".encode())
+```
+
+
 ## 配置
 
 ### callback_host
