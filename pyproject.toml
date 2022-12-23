@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "nonebot-plugin-gocqhttp-cross-machine-upload-file"
+version = "0.1.0"
+description = ""
+authors = ["ssttkkl <huang.wen.long@hotmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "nonebot_plugin_gocqhttp_cross_machine_upload_file", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+nonebot2 = "^2.0.0rc1"
+nonebot-adapter-onebot = "^2.1.5"
+cachetools = "^5.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
