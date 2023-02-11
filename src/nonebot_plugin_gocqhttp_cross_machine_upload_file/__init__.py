@@ -1,6 +1,7 @@
 import time
 from os import PathLike
 from typing import Union, AsyncIterable, Iterator
+from uuid import uuid4
 
 from fastapi import FastAPI, Path
 from nonebot import get_app
@@ -15,7 +16,7 @@ _app: FastAPI = get_app()
 
 
 @_app.get("/file_center/{file_id}")
-async def get_file(file_id: int = Path()):
+async def get_file(file_id: str = Path(default='')):
     data = _files.get(file_id, None)
     if data is None:
         return Response(status_code=404)
@@ -52,7 +53,7 @@ async def upload_group_file(bot: Bot, group_id: int, filename: str,
     if not data and not path:
         raise ValueError("either data or path must be provided")
 
-    file_id = time.time_ns()
+    file_id = str(uuid4()).replace('-', '')
     _files[file_id] = (data, path)
 
     download_result = await bot.download_file(
@@ -75,7 +76,7 @@ async def upload_private_file(bot: Bot, user_id: int, filename: str,
     if not data and not path:
         raise ValueError("either data or path must be provided")
 
-    file_id = time.time_ns()
+    file_id = str(uuid4()).replace('-', '')
     _files[file_id] = (data, path)
 
     download_result = await bot.download_file(

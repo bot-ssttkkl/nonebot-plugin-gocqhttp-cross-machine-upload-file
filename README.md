@@ -3,6 +3,8 @@ nonebot-plugin-gocqhttp-cross-machine-upload-file
 
 为go-cqhttp与nonebot部署于不同机器的系统提供上传群文件、私聊文件的能力。
 
+**只适用于FastAPI反向驱动器**
+
 ## 用法
 
 ```python
