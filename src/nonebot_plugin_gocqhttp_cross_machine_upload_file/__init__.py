@@ -16,7 +16,7 @@ _app: FastAPI = get_app()
 
 
 @_app.get("/file_center/{file_id}")
-async def get_file(file_id: str = Path(default='')):
+async def get_file(file_id: str = Path()):
     data = _files.get(file_id, None)
     if data is None:
         return Response(status_code=404)
