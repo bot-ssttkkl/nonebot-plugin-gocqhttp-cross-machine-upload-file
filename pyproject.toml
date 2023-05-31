@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nonebot-plugin-gocqhttp-cross-machine-upload-file"
-version = "0.1.4"
+version = "0.1.5"
 description = ""
 authors = ["ssttkkl <huang.wen.long@hotmail.com>"]
 license = "MIT"
